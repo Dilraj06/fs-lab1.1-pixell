@@ -1,0 +1,39 @@
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #f4f6f8;
+}
+
+.site-header {
+  background: #1f3b63;
+  color: white;
+  padding: 20px;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo-title img {
+  height: 60px;
+  margin-right: 20px;
+}
+
+main {
+  padding: 20px;
+}
+
+.department {
+  background: white;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+footer {
+  background: #1f3b63;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
