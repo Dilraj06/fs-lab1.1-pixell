@@ -1,0 +1,4 @@
+[
+  { "id": 1, "name": "Jordan Rivers", "role": "Customer Support", "department": "Support", "email": "jordan@pixell.ca" },
+  { "id": 2, "name": "Avery Chen", "role": "Advisor", "department": "Advisory", "email": "avery@pixell.ca" }
+]
