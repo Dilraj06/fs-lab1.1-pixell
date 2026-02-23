@@ -4,7 +4,10 @@ import "./layout.css";
 
 export type AppCtx = {
     departments: Department[];
-    onAddEmployee: (data: { firstName: string; lastName: string; department: string }) => void;
+    onAddEmployee: (data: { firstName: string; lastName: string; department: string }) => {
+        ok: boolean;
+        errors: { firstName?: string[]; department?: string[] };
+    };
 };
 
 type Props = {

@@ -6,16 +6,22 @@ import { roles } from "../data/roles";
 export default function OrganizationPage() {
     const { departments } = useOutletContext<AppCtx>();
 
-    const employees = departments.flatMap((d) => d.employees);
+    // keep the department name with each employee
+    const people = departments.flatMap((d) =>
+        d.employees.map((e) => ({
+            ...e,
+            deptName: d.name,
+        }))
+    );
 
-    const orgPeople = employees.map((e) => {
-        const match = roles.find((r) => r.employeeId === e.id);
+    const orgPeople = people.map((p) => {
+        const match = roles.find((r) => r.employeeId === p.id);
 
         return {
-            id: e.id,
-            firstName: e.firstName,
-            lastName: e.lastName,
-            role: match ? match.title : "Employee",
+            id: p.id,
+            firstName: p.firstName,
+            lastName: p.lastName,
+            role: match ? match.title : p.deptName, // ✅ fallback to department
         };
     });
 
