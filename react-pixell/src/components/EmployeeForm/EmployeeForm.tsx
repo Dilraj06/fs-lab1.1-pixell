@@ -1,63 +1,65 @@
-import { useMemo, useState } from "react";
+import { useEffect } from "react";
+import { useFormInput } from "../../hooks/useFormInput";
 
 type Props = {
   departmentNames: string[];
-  onAddEmployee: (data: { firstName: string; lastName: string; department: string }) => void;
+  onAddEmployee: (data: {
+    firstName: string;
+    lastName: string;
+    department: string;
+  }) => { ok: boolean; errors: { firstName?: string[]; department?: string[] } };
 };
 
 export default function EmployeeForm({ departmentNames, onAddEmployee }: Props) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [department, setDepartment] = useState(departmentNames[0] ?? "");
-  const [errors, setErrors] = useState<string[]>([]);
+  const firstName = useFormInput<string>("");
+  const lastName = useFormInput<string>("");
+  const department = useFormInput<string>(departmentNames[0] ?? "");
 
-  // If departments ever change, keep dropdown valid
-  useMemo(() => {
-    if (!departmentNames.includes(department)) {
-      setDepartment(departmentNames[0] ?? "");
+  // keep dropdown valid if departments change
+  useEffect(() => {
+    if (!departmentNames.includes(department.value)) {
+      department.setValue(departmentNames[0] ?? "");
+      department.setMessages([]);
     }
   }, [departmentNames, department]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Clear existing validation messages
-    const nextErrors: string[] = [];
+    // clear old messages
+    firstName.setMessages([]);
+    department.setMessages([]);
 
-    if (firstName.trim().length < 3) {
-      nextErrors.push("First name must be at least 3 characters.");
-    }
-
-    if (!departmentNames.includes(department)) {
-      nextErrors.push("Please select an existing department.");
-    }
-
-    setErrors(nextErrors);
-
-    // If failed validations, do NOT add employee
-    if (nextErrors.length > 0) return;
-
-    onAddEmployee({
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
-      department,
+    // call Layout handler (which calls service)
+    const result = onAddEmployee({
+      firstName: firstName.value.trim(),
+      lastName: lastName.value.trim(),
+      department: department.value,
     });
 
-    // Optional: reset form after success
-    setFirstName("");
-    setLastName("");
-    setDepartment(departmentNames[0] ?? "");
+    if (!result.ok) {
+      firstName.setMessages(result.errors.firstName ?? []);
+      department.setMessages(result.errors.department ?? []);
+      return;
+    }
+
+    // success reset
+    firstName.setValue("");
+    lastName.setValue("");
+    department.setValue(departmentNames[0] ?? "");
   }
+
+  const allErrors = [...firstName.messages, ...department.messages];
 
   return (
     <section className="employee-form">
       <h2>Add New Employee</h2>
 
-      {errors.length > 0 && (
+      {allErrors.length > 0 && (
         <section aria-live="polite">
           <ul>
-            {errors.map((msg) => (
-              <li key={msg}>{msg}</li>
+            {allErrors.map((msg, i) => (
+              <li key={`${msg}-${i}`}>{msg}</li>
             ))}
           </ul>
         </section>
@@ -66,29 +68,17 @@ export default function EmployeeForm({ departmentNames, onAddEmployee }: Props) 
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="firstName">First Name</label>
-          <input
-            id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
+          <input id="firstName" value={firstName.value} onChange={firstName.onChange} />
         </div>
 
         <div>
           <label htmlFor="lastName">Last Name</label>
-          <input
-            id="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
+          <input id="lastName" value={lastName.value} onChange={lastName.onChange} />
         </div>
 
         <div>
           <label htmlFor="department">Department</label>
-          <select
-            id="department"
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-          >
+          <select id="department" value={department.value} onChange={department.onChange}>
             {departmentNames.map((d) => (
               <option key={d} value={d}>
                 {d}

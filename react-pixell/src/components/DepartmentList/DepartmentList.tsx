@@ -1,3 +1,6 @@
+
+
+
 type Employee = {
   id: number;
   firstName: string;
@@ -10,9 +13,8 @@ type Department = {
   employees: Employee[];
 };
 
-type Props = {
-  departments: Department[];
-};
+type Props = { departments: Department[] };
+
 
 export default function DepartmentList({ departments }: Props) {
   return (
