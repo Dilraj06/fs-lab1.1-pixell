@@ -1,73 +1,13 @@
-# React + TypeScript + Vite
+## Lab 5.2 Changes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### What change I wanted to make
+For Lab 5.2, I wanted to improve my Pixell River Financial application by adding better data handling and role-related features. My goal was to move beyond a simple static application and make the project feel more like a real full-stack app. I worked on adding role management so that roles could be created, viewed, and removed through the application.
 
-Currently, two official plugins are available:
+### What tools I used
+For this lab, I used React, TypeScript, Express, and additional frontend tools such as TanStack Query and Clerk. TanStack Query helped with server state management because it handles fetching and refreshing data in a cleaner way than only using useEffect. Clerk was used to support authentication and show how users can sign in before accessing certain parts of the application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### How this change affects the user experience
+This change improves the user experience because the app becomes more interactive and organized. Instead of only showing static information, the user can work with role-related data and see updates in the interface. Features such as authentication, role management, and better data loading make the application feel more realistic and closer to a professional web application.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### How this change affects my understanding of the app
+This lab helped me understand that a full-stack app is not only about displaying data on a page. I learned that the frontend, backend, authentication, and data-fetching tools all work together. I also understood why tools like TanStack Query are useful, because they reduce repeated fetch logic and make server data easier to manage in React.
