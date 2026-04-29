@@ -16,7 +16,7 @@ export interface Department {
 export function employeeRepo() {
     return {
         async getEmployees(): Promise<Employee[]> {
-            const res = await fetch(`${API}/employees`);
+            const res = await fetch("https://fs-lab1-1-pixell.onrender.com/api/employees");
             if (!res.ok) {
                 throw new Error("Failed to fetch employees");
             }
