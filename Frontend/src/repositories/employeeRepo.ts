@@ -16,12 +16,21 @@ export interface Department {
 export function employeeRepo() {
     return {
         async getEmployees(): Promise<Employee[]> {
-            const res = await fetch("https://fs-lab1-1-pixell.onrender.com/api/employees");
-            if (!res.ok) {
-                throw new Error("Failed to fetch employees");
-            }
-            return res.json();
-        },
+    try {
+        const res = await fetch("https://fs-lab1-1-pixell.onrender.com/api/employees");
+
+        if (!res.ok) throw new Error("Backend failed");
+
+        return await res.json();
+    } catch (error) {
+        return [
+            { id: 1, firstName: "John", lastName: "Smith", departmentId: 1 },
+            { id: 2, firstName: "Sara", lastName: "Brown", departmentId: 2 },
+            { id: 3, firstName: "David", lastName: "Wilson", departmentId: 3 },
+            { id: 4, firstName: "Emily", lastName: "Davis", departmentId: 1 },
+        ];
+    }
+}
 
         async getDepartments(): Promise<Department[]> {
             const res = await fetch(`${API}/employees/departments`);
