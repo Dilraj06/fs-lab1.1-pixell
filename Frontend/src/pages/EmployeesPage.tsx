@@ -105,26 +105,8 @@ export default function EmployeesPage() {
 
     if (loading) return <p>Loading employees...</p>;
     if (error) {
-    return (
-        <div style={{ padding: "1rem" }}>
-            <h2>Employees</h2>
-
-            <h3>Employee List</h3>
-            <ul>
-                <li>John Smith — Finance</li>
-                <li>Sara Brown — HR</li>
-                <li>David Wilson — IT</li>
-            </ul>
-
-            <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}>
-                <button disabled>Previous</button>
-                <span>Page 1 of 2</span>
-                <button>Next</button>
-            </div>
-        </div>
-    );
+    setTimeout(() => setError(""), 0);
 }
-
     const totalPages = Math.ceil(employees.length / employeesPerPage);
 
     const startIndex = (currentPage - 1) * employeesPerPage;
